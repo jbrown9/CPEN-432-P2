@@ -10,6 +10,7 @@
 #include <kstdint.h>
 #include <uart.h>
 #include <printk.h>
+#include <interrupts.h>
 
 /** @brief AUXEN register */
 #define AUXENB                      (volatile uint32_t*)(MMIO_BASE_PHYSICAL + 0x00215004)
