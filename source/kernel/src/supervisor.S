@@ -98,7 +98,7 @@ _data_abort_vector_h:               .word   data_abort_vector
 _unused_handler_h:                  .word   _reset_
 _irq_asm_handler_h:                .word   irq_asm_handler
 _fast_interrupt_vector_h:           .word   fast_interrupt_vector
-irq_c_handler:                      .word   kernel/src/interrupts.c
+_irq_c_handler:                      .word   kernel/src/interrupts.c
 
 _reset_:
 
@@ -109,10 +109,10 @@ _reset_:
     ldmia   r0!,{r2, r3, r4, r5, r6, r7, r8, r9}
     stmia   r1!,{r2, r3, r4, r5, r6, r7, r8, r9}
     
-irq_asm_handler:
+_irq_asm_handler:
   b irq_asm_handler
 
-reset_asm_handler:
+_reset_asm_handler:
   b _start // just reset the kernel
 
 
@@ -172,7 +172,7 @@ _get_stack_pointer:
     mov     pc, lr
 
 
-enable_interrupts:
+_enable_interrupts:
     mrs     r0, cpsr
     bic     r0, r0, #CPSR_IRQ_INHIBIT
     msr     cpsr_c, r0
@@ -181,11 +181,12 @@ enable_interrupts:
     mov     pc, lr
 
 
-irq_asm_handler:
-    str pc, __irq_stack_top
+_irq_asm_handler:
+    srs sp, __irq_stack_top
+    
     str cpsr, spsr_irq
-    mov cpsr, 10010b
-
+    msr cpsr_c, 10010010b
+    // msr cpsr_c, 10000000b
     str pc, lr_irq
     ldr pc, 0x00000018
     bl      irq_c_handler
