@@ -187,8 +187,13 @@ _irq_asm_handler:
     str cpsr, spsr_irq
     msr cpsr_c, 10010010b
     // msr cpsr_c, 10000000b
-    str pc, lr_irq
+    stmdb   r12,{r1, r2, r3, r4, r5, r6, r7, r8, r9, r10, r11, r12, r13, r14}
+    
+    add r0, pc, 0x4
+    str r0, lr_irq
+    //str pc, lr_irq
     ldr pc, 0x00000018
     bl      irq_c_handler
     ldr cpsr, spsr_irq
     ldr pc, lr_irq
+    ldmia   r12,{r1, r2, r3, r4, r5, r6, r7, r8, r9, r10, r11, r12, r13, r14}
