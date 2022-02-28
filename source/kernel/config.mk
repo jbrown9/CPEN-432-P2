@@ -39,6 +39,7 @@ K_C_SRC += $(PROJECT)/src/kernel.c
 K_C_SRC += $(PROJECT)/src/printk.c
 K_C_SRC += $(PROJECT)/src/uart.c
 K_C_SRC += $(PROJECT)/src/basic_timer.c
+K_C_SRC += $(PROJECT)/src/timer.c
 
 ###########################################################################
 # Kernel assembly source files
