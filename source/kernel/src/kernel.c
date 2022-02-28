@@ -7,6 +7,8 @@
  * @author Kyuin Lee <kyuinl@andrew.cmu.edu>
  */
 
+#define ARM_INTERRUPT_EN_REG (volatile uint32_t*)(MMIO_BASE_PHYSICAL + 0x00B214)
+
 #include <arm.h>
 #include <kstdint.h>
 #include <uart.h>
@@ -14,6 +16,7 @@
 #include <basic_timer.h>
 #include <printk.h>
 #include <timer.h>
+#include <interrupts.h>
 
 #define SIZE 500
 int array1[SIZE],array2[SIZE];
@@ -65,7 +68,10 @@ void kernel_main(void) {
     //Print passed
     printk("+++++++Test Passed+++++++\n");
   }
-  
+  /* Enable the timer interrupt IRQ */
+  //RPI_GetIrqController()->Enable_Basic_IRQs = RPI_BASIC_ARM_TIMER_IRQ;
+  *ARM_INTERRUPT_EN_REG = 0x1;
+
   timer_start(1);
 
   while (1) {

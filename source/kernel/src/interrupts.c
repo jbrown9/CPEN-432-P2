@@ -13,7 +13,7 @@
 
 #include <uart.h>
 #include <printk.h>
-
+#include <interrupts.h>
 //#include "rpi-armtimer.h"
 //#include "rpi-base.h"
 //#include "rpi-gpio.h"
@@ -99,11 +99,11 @@ void __attribute__((interrupt("IRQ"))) irq_asm_handler(void)
     /* static int lit = 0;
 
     if( RPI_GetArmTimer()->MaskedIRQ ) {
-        ///* Clear the ARM Timer interrupt - it's the only interrupt we have
+         Clear the ARM Timer interrupt - it's the only interrupt we have
            enabled, so we want don't have to work out which interrupt source
-           caused us to interrupt * /
+           caused us to interrupt 
         RPI_GetArmTimer()->IRQClear = 1;
-        /* Flip the LED * /
+         Flip the LED 
         if( lit )
         {
             LED_OFF();
