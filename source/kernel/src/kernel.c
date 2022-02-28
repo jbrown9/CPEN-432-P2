@@ -13,6 +13,7 @@
 #include <printk.h>
 #include <basic_timer.h>
 #include <printk.h>
+#include <timer.h>
 
 #define SIZE 500
 int array1[SIZE],array2[SIZE];
@@ -65,6 +66,8 @@ void kernel_main(void) {
     printk("+++++++Test Passed+++++++\n");
   }
   
+  timer_start(1);
+
   while (1) {
     delay_cycles(100000);
   }

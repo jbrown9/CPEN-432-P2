@@ -7,6 +7,7 @@
  * @author your_name <email>
  */
 #include <timer.h>
+#include <printk.h>
 
 #define ARM_TIMER_CTRL_32BIT        1<<1
 #define ARM_TIMER_CTRL_PRESCALER1   0<<2
@@ -21,6 +22,9 @@ void timer_start(int freq)
                             ARM_TIMER_CTRL_PRESCALER1 |
                             ARM_TIMER_CTRL_INT_EN |
                             ARM_TIMER_CTRL_TIMER_EN;
+
+
+    printk("Timer Started");
 }
 
 
