@@ -150,47 +150,22 @@ void kernel_main(void) {
     printk("+++++++Test Passed+++++++\r\n");
   }
   /* Enable the timer interrupt IRQ */
-  //RPI_GetIrqController()->Enable_Basic_IRQs = RPI_BASIC_ARM_TIMER_IRQ;
-  //*ARM_INTERRUPT_EN_REG = 0x1; /** Enable the ARM Timer IRQ */
-  //timer_start(1); 
-  //delay_cycles(5);
-  //printk("\r\nControl Reg Value %x\r\n", *ARM_TIMER_CTRL_REG);
-  //printk("timer value %u\r\n", *TIMER_VALUE);
-  //printk("timer pending %d\r\n", timer_is_pending());
-  //printk("Interrupt Timer Pending %x\r\n", (*INTERRUPT_CONTROLLER_BASE));
+  *ARM_INTERRUPT_EN_REG = 0x1; /** Enable the ARM Timer IRQ */
+  timer_start(0.1); 
+  delay_cycles(5);
+  
 
 
-
-/** Simple loop variable */
-volatile unsigned int tim;
-
-
-
-    /* Write 1 to the GPIO16 init nibble in the Function Select 1 GPIO
-       peripheral register to enable GPIO16 as an output */
-    LED_EN();
 
   while (1) {
-  
-    /* Never exit as there is no OS to exit to! */
-    while(1)
+    if(timer_is_pending() == 0)
     {
-        for(tim = 0; tim < 500000; tim++)
-            ;
-
-        /* Set the LED GPIO pin low ( Turn OK LED on for original Pi, and off
-           for plus models )*/
-        LED_OFF();
-
-        for(tim = 0; tim < 500000; tim++)
-            ;
-
-        /* Set the LED GPIO pin high ( Turn OK LED off for original Pi, and on
-           for plus models )*/
-        LED_ON();
+      printk("\r\nControl Reg Value %x\r\n", *ARM_TIMER_CTRL_REG);
+      printk("timer value %u\r\n", *TIMER_VALUE);
+      printk("timer pending %d\r\n", timer_is_pending());
+      printk("Interrupt Timer Pending %x\r\n", (*INTERRUPT_CONTROLLER_BASE));
+      delay_cycles(100);
     }
-    //delay_cycles(10000);
-    
   }
   
 }
