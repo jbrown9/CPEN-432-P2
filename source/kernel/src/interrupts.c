@@ -14,10 +14,11 @@
 #include <uart.h>
 #include <printk.h>
 #include <interrupts.h>
-//#include "rpi-armtimer.h"
-//#include "rpi-base.h"
-//#include "rpi-gpio.h"
-//#include "rpi-interrupts.h"
+#include <timer.h>
+#include <gpio.h>
+
+
+
 
 /**
     @brief The Reset vector interrupt handler
@@ -95,18 +96,19 @@ void __attribute__((interrupt("ABORT"))) data_abort_vector(void)
 */
 void __attribute__((interrupt("IRQ"))) irq_asm_handler(void)
 {
-    printk("Interupt is working");
-    /* static int lit = 0;
-
-    if( RPI_GetArmTimer()->MaskedIRQ ) {
+    printk("IRQ HIT!!!!");
+    /** GPIO Register set */
+    //static int lit = 0; 
+    /**LED_EN();   
+    if( *ARM_TIMER_MASKED_REG & 0x1 ) {
          Clear the ARM Timer interrupt - it's the only interrupt we have
            enabled, so we want don't have to work out which interrupt source
            caused us to interrupt 
-        RPI_GetArmTimer()->IRQClear = 1;
-         Flip the LED 
+        *ARM_TIMER_IRQ_REG = 1;
+         Flip the LED  
         if( lit )
         {
-            LED_OFF();
+            LED_OFF();  
             lit = 0;
         }
         else

@@ -74,4 +74,10 @@ void gpio_clr(uint8_t pin);
  */
 void gpio_set_pull(uint8_t pin, uint8_t state);
 
+void LED_EN(void);
+
+void LED_ON(void);
+
+void LED_OFF(void);
+
 #endif /* _GPIO_H_ */
