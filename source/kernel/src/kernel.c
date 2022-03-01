@@ -151,19 +151,20 @@ void kernel_main(void) {
   }
   /* Enable the timer interrupt IRQ */
 
-  enable_interrupts();
   //RPI_GetIrqController()->Enable_Basic_IRQs = RPI_BASIC_ARM_TIMER_IRQ;
-  *ARM_INTERRUPT_EN_REG = 0x1; /** Enable the ARM Timer IRQ */
+  /* *ARM_INTERRUPT_EN_REG = 0x1; / ** Enable the ARM Timer IRQ * /
   
   timer_start(1); 
   delay_cycles(5);
   printk("Control Reg Value %x\n", *ARM_TIMER_CTRL_REG);
   printk("timer value %u\n", *TIMER_VALUE);
   printk("timer pending %d\n", timer_is_pending());
-  printk("Interrupt Timer Pending %x\n", (*INTERRUPT_CONTROLLER_BASE));
+  printk("Interrupt Timer Pending %x\n", (*INTERRUPT_CONTROLLER_BASE));*/
 
   *ARM_INTERRUPT_EN_REG = 0x1; /** Enable the ARM Timer IRQ */
-  timer_start(0.1); 
+  timer_start(0.1);
+
+  enable_interrupts(); /** inable interupts */
   delay_cycles(5);
   
   while (1) {
