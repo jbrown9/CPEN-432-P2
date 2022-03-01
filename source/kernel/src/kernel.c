@@ -7,7 +7,8 @@
  * @author Kyuin Lee <kyuinl@andrew.cmu.edu>
  */
 
-#define ARM_INTERRUPT_EN_REG (volatile uint32_t*)(MMIO_BASE_PHYSICAL + 0x00B214)
+#define ARM_INTERRUPT_EN_REG (volatile uint32_t*)(MMIO_BASE_PHYSICAL + 0x00B218)
+#define INTERRUPT_CONTROLLER_BASE   (volatile uint32_t*)( MMIO_BASE_PHYSICAL + 0xB200 )
 
 #include <arm.h>
 #include <kstdint.h>
@@ -29,7 +30,7 @@ void kernel_main(void) {
   int index;
   int good = 1;
   uint32_t timer_value;
-
+  
   uart_init();
   //initialize the two arrays
   for (index = 0; index < SIZE; ++index) {
@@ -70,12 +71,16 @@ void kernel_main(void) {
   }
   /* Enable the timer interrupt IRQ */
   //RPI_GetIrqController()->Enable_Basic_IRQs = RPI_BASIC_ARM_TIMER_IRQ;
-  *ARM_INTERRUPT_EN_REG = 0x1;
-
-  timer_start(1);
-
+  *ARM_INTERRUPT_EN_REG = 0x1; /** Enable the ARM Timer IRQ */
+  timer_start(1); 
+  delay_cycles(5);
+  printk("Control Reg Value %x\n", *ARM_TIMER_CTRL_REG);
+  printk("timer value %u\n", *TIMER_VALUE);
+  printk("timer pending %d\n", timer_is_pending());
+  printk("Interrupt Timer Pending %x\n", (*INTERRUPT_CONTROLLER_BASE));
   while (1) {
-    delay_cycles(100000);
+    delay_cycles(10000);
+    
   }
   
 }

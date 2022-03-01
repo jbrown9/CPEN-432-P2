@@ -60,4 +60,6 @@ int timer_is_pending(void);
  */
 void timer_clear_pending(void);
 
+int timer_value(void);
+
 #endif
