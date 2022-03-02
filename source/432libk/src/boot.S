@@ -23,7 +23,7 @@
  * @param r2 = address of start of ATAGS
  */
 .global _start
-_start:
+/**_start:
   // setup a default irq stack
   mrs r0, cpsr                          // stash cpsr so we can go back
   msr cpsr_c, #(PSR_MODE_IRQ | PSR_IRQ | PSR_FIQ) // jump to IRQ
@@ -37,6 +37,7 @@ _start:
   mov r3, #0
   mov r4, #0
   mov r5, #0
+*/
   // clear out bss
 bss_loop:
   stmia r0!, {r2-r5}
