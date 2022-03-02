@@ -8,7 +8,7 @@
 */
 
 #include <kstdint.h>
-#include <stdint.h>
+#include <kstdint.h>
 
 #include <uart.h>
 #include <printk.h>
