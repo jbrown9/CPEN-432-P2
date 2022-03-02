@@ -83,8 +83,8 @@ void kernel_main(void) {
   printk("timer pending %d\n", timer_is_pending());
   printk("Interrupt Timer Pending %x\n", (*INTERRUPT_CONTROLLER_BASE));*/
 
-  //*ARM_INTERRUPT_EN_REG = 0x1; /** Enable the ARM Timer IRQ */
-  RPI_EnableARMTimerInterrupt();
+  *ARM_INTERRUPT_EN_REG = 0x1; /** Enable the ARM Timer IRQ */
+  //RPI_EnableARMTimerInterrupt();
   timer_start(0.1);
 
   enable_interrupts(); /** inable interupts */

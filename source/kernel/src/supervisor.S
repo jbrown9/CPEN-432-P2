@@ -31,6 +31,8 @@
 // Go and read and absorb this quite excellent startup code. It's really nice:
 // https://github.com/LdB-ECM/Raspberry-Pi/blob/master/SD_FAT32/SmartStart32.S
 
+// #include <interrupts.h>
+
 .section ".text.startup"
 
 .global _start
@@ -139,16 +141,6 @@ _reset_:
     .word 0xE12EF30E
     .word 0xE160006E   
 
-    //mov     r0, #0x8000
-    //mov     r1, #0x0000
-    //ldmia   r0!,{r2, r3, r4, r5, r6, r7, r8, r9}
-    //stmia   r1!,{r2, r3, r4, r5, r6, r7, r8, r9}
-    //ldmia   r0!,{r2, r3, r4, r5, r6, r7, r8, r9}
-    //stmia   r1!,{r2, r3, r4, r5, r6, r7, r8, r9}
-    
-//_irq_asm_handler:
-//  b _irq_asm_handler
-
 _irq_asm_handler:
    // srs sp, __irq_stack_top
 
@@ -224,12 +216,4 @@ _get_stack_pointer:
     // Return from the function
     mov     pc, lr
 
-
-_enable_interrupts:
-    mrs     r0, cpsr
-    bic     r0, r0, #CPSR_IRQ_INHIBIT
-    msr     cpsr_c, r0
-    cpsie   i
-
-    mov     pc, lr
 
