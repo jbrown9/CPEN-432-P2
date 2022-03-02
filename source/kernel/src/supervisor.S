@@ -38,7 +38,7 @@
 .global _start
 .global _get_stack_pointer
 .global _exception_table
-.global _enable_interrupts
+//.global _enable_interrupts
 
 // From the ARM ARM (Architecture Reference Manual). Make sure you get the
 // ARMv5 documentation which includes the ARMv6 documentation which is the
@@ -100,7 +100,7 @@ _data_abort_vector_h:               .word   data_abort_vector
 _unused_handler_h:                  .word   _reset_
 _irq_asm_handler_h:                 .word   _irq_asm_handler
 _fast_interrupt_vector_h:           .word   fast_interrupt_vector
-// _irq_c_handler:                     .word   kernel/src/interrupts.c
+_irq_c_handler_h:                   .word   irq_c_handler
 
 _reset_:
      // Determine what mode the cpu has started up in. When we get to the very start of the ARM execution we can
@@ -153,7 +153,7 @@ _irq_asm_handler:
    // str r0, lr_irq
     //str pc, lr_irq
    // ldr pc, 0x00000018
-    bl      irq_c_handler
+    bl      _irq_c_handler_h
    // ldr cpsr, spsr_irq
    // ldr pc, lr_irq
    // ldmia   r12,{r1, r2, r3, r4, r5, r6, r7, r8, r9, r10, r11, r12, r13, r14}

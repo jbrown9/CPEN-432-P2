@@ -9,10 +9,9 @@
 
 #include <BCM2836.h>
 #include <psr.h>
-#include <supervisor.S>
 
 // label to make sure this code is executed first
-.section ".text.boot"
+//.section ".text.boot"
 
 
 /**
