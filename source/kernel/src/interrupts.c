@@ -6,7 +6,7 @@
     This software is licensed under the MIT License.
     Please see the LICENSE file included with this software.
 */
-
+//test
 #include <kstdint.h>
 #include <kstdint.h>
 
@@ -127,7 +127,7 @@ void __attribute__((interrupt("ABORT"))) data_abort_vector(void)
 */
 void __attribute__((interrupt("IRQ"))) irq_asm_handler(void)
 {
-    printk("IRQ HIT!!!!");
+    printk("\r\nIRQ HIT!!!!\r\n");
     /** GPIO Register set */
     /*static int lit = 0;
     LED_EN();   

@@ -38,7 +38,9 @@
 .global _start
 .global _get_stack_pointer
 .global _exception_table
-//.global _enable_interrupts
+.global _enable_interrupts
+.global _enable_interrupts
+
 
 // From the ARM ARM (Architecture Reference Manual). Make sure you get the
 // ARMv5 documentation which includes the ARMv6 documentation which is the
@@ -89,7 +91,7 @@ _start:
     ldr pc, _prefetch_abort_vector_h
     ldr pc, _data_abort_vector_h
     ldr pc, _unused_handler_h
-    ldr pc, _irq_asm_handler_h 
+    ldr pc, _irq_asm_handler_h
     ldr pc, _fast_interrupt_vector_h
 
 _reset_h:                           .word   _reset_
@@ -98,12 +100,11 @@ _software_interrupt_vector_h:       .word   software_interrupt_vector
 _prefetch_abort_vector_h:           .word   prefetch_abort_vector
 _data_abort_vector_h:               .word   data_abort_vector
 _unused_handler_h:                  .word   _reset_
-_irq_asm_handler_h:                 .word   _irq_asm_handler
+_irq_asm_handler_h:                 .word   irq_asm_handler
 _fast_interrupt_vector_h:           .word   fast_interrupt_vector
-_irq_c_handler_h:                   .word   irq_c_handler
 
 _reset_:
-     // Determine what mode the cpu has started up in. When we get to the very start of the ARM execution we can
+    // Determine what mode the cpu has started up in. When we get to the very start of the ARM execution we can
     // extract the Current Program Status Register value and mask off the Mode field which is defined in the ARM
     // Architecture Reference Manual for ARMV6 ARMV7 and ARMV8 as M[4:0] - in other words the 5 lowest bits
     // Do this in a high register so as not to overwrite anything the bootloader has passed over (such as atags)
@@ -139,27 +140,7 @@ _reset_:
 
     add lr, pc, #4
     .word 0xE12EF30E
-    .word 0xE160006E   
-
-_irq_asm_handler:
-   // srs sp, __irq_stack_top
-
-   // stmdb   r12,{r1, r2, r3, r4, r5, r6, r7, r8, r9, r10, r11, r12, r13, r14}
-   // str cpsr, spsr_irq
-   // msr cpsr_c, 10010010b
-    // msr cpsr_c, 10000000b 
-    
-   // add r0, pc, 0x4
-   // str r0, lr_irq
-    //str pc, lr_irq
-   // ldr pc, 0x00000018
-    bl      _irq_c_handler_h
-   // ldr cpsr, spsr_irq
-   // ldr pc, lr_irq
-   // ldmia   r12,{r1, r2, r3, r4, r5, r6, r7, r8, r9, r10, r11, r12, r13, r14}
-
-_reset_asm_handler:
-  b _start // just reset the kernel
+    .word 0xE160006E
 
 _multicore_park:
     // On RPI2/3 make sure all cores that are not core 0 branch off to an infinite loop to make them enter a spinlock
@@ -202,6 +183,13 @@ _inf_loop:
     b _inf_loop
 
 
+irq_asm_handler:
+  b irq_asm_handler
+
+
+reset_asm_handler:
+  b _start // just reset the kernel
+
 // A 32-bit value that represents the processor mode at startup
 _cpsr_startup_mode:  .word    0x0
 _osc:                .word    54000000
@@ -214,6 +202,15 @@ _get_stack_pointer:
     ldr     r0, [sp]
 
     // Return from the function
+    mov     pc, lr
+
+
+_enable_interrupts:
+    mrs     r0, cpsr
+    bic     r0, r0, #CPSR_IRQ_INHIBIT
+    msr     cpsr_c, r0
+    cpsie   i
+
     mov     pc, lr
 
 
