@@ -6,7 +6,6 @@
  * @date   
  * @author your_name <email>
  */
-//fixed
 #include <timer.h>
 #include <printk.h>
 
