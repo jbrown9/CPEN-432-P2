@@ -18,6 +18,12 @@
 #include <gpio.h>
 #include <BCM2836.h>
 
+/** @brief See Section 7.5 of the BCM2835 ARM Peripherals documentation, the base
+    address of the controller is actually xxxxB000, but there is a 0x200 offset
+    to the first addressable register for the interrupt controller, so offset the
+    base to the first register */
+#define RPI_INTERRUPT_CONTROLLER_BASE   ( MMIO_BASE_PHYSICAL + 0xB200 )
+
 /** @brief Bits in the Enable_Basic_IRQs register to enable various interrupts.
     See the BCM2835 ARM Peripherals manual, section 7.5 */
 #define RPI_BASIC_ARM_TIMER_IRQ         (1 << 0)
@@ -29,13 +35,7 @@
 #define RPI_BASIC_ACCESS_ERROR_1_IRQ    (1 << 6)
 #define RPI_BASIC_ACCESS_ERROR_0_IRQ    (1 << 7)
 
-    /** @brief See Section 7.5 of the BCM2835 ARM Peripherals documentation, the base
-        address of the controller is actually xxxxB000, but there is a 0x200 offset
-        to the first addressable register for the interrupt controller, so offset the
-        base to the first register */
-#define RPI_INTERRUPT_CONTROLLER_BASE   ( MMIO_BASE_PHYSICAL + 0xB200 )
-
-        /** @brief The interrupt controller memory mapped register set */
+/** @brief The interrupt controller memory mapped register set */
 typedef struct {
     volatile uint32_t IRQ_basic_pending;
     volatile uint32_t IRQ_pending_1;
@@ -43,7 +43,7 @@ typedef struct {
     volatile uint32_t FIQ_control;
     volatile uint32_t Enable_IRQs_1;
     volatile uint32_t Enable_IRQs_2;
-    volatile uint32_t Enable_Basic_IRQs;
+    volatile int Enable_Basic_IRQs;
     volatile uint32_t Disable_IRQs_1;
     volatile uint32_t Disable_IRQs_2;
     volatile uint32_t Disable_Basic_IRQs;
@@ -72,7 +72,7 @@ void __attribute__((interrupt("UNDEF"))) undefined_instruction_vector(void)
 {
     while( 1 )
     {
-        printk("undefined_instruction_vector")
+        printk("undefined_instruction_vector");
         /* Do Nothing! */
     }
 }
@@ -88,7 +88,7 @@ void __attribute__((interrupt("SWI"))) software_interrupt_vector(void)
 {
     while( 1 )
     {
-        printk("software Interrupt vector")
+        printk("software Interrupt vector");
         /* Do Nothing! */
     }
 }
@@ -186,14 +186,13 @@ void __attribute__((interrupt("FIQ"))) fast_interrupt_vector(void)
 // Interupt controller code
 
 /** @brief The BCM2835 Interupt controller peripheral at it's base address */
-static rpi_irq_controller_t* rpiIRQController =
-(rpi_irq_controller_t*)RPI_INTERRUPT_CONTROLLER_BASE;
+static rpi_irq_controller_t* rpiIRQController = (rpi_irq_controller_t*)RPI_INTERRUPT_CONTROLLER_BASE;
 
 
 /**
     @brief Return the IRQ Controller register set
 */
-rpi_irq_controller_t* RPI_GetIrqController(void)
+static rpi_irq_controller_t* RPI_GetIrqController(void)
 {
     return rpiIRQController;
 }
@@ -201,9 +200,5 @@ rpi_irq_controller_t* RPI_GetIrqController(void)
 
 void RPI_EnableARMTimerInterrupt(void)
 {
-#ifdef RPI4
-    //    RPI_EnableGICInterrupts();
-    gic400_init(0xFF840000UL);
-#endif
     RPI_GetIrqController()->Enable_Basic_IRQs = RPI_BASIC_ARM_TIMER_IRQ;
 }

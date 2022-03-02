@@ -14,7 +14,7 @@
 #include <kstdint.h>
 #include <BCM2836.h>
 
-extern void RPI_EnableARMTimerInterrupt(void);
+void RPI_EnableARMTimerInterrupt(void);
 
 #endif
 

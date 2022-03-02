@@ -10,7 +10,7 @@
 #ifndef _supervisor_H_
 #define _supervisor_H_
 
-
+#include <interrupts.h>
 
 
 #endif /* _supervisor_ */
