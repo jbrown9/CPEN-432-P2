@@ -72,6 +72,7 @@ void __attribute__((interrupt("UNDEF"))) undefined_instruction_vector(void)
 {
     while( 1 )
     {
+        printk("undefined_instruction_vector")
         /* Do Nothing! */
     }
 }
@@ -87,6 +88,7 @@ void __attribute__((interrupt("SWI"))) software_interrupt_vector(void)
 {
     while( 1 )
     {
+        printk("software Interrupt vector")
         /* Do Nothing! */
     }
 }
