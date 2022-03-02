@@ -126,7 +126,7 @@ void __attribute__((interrupt("ABORT"))) data_abort_vector(void)
     importantly clear the interrupt flag so that the interrupt won't
     immediately put us back into the start of the handler again.
 */
-void __attribute__((interrupt("IRQ"))) irq_c_handler(void)
+void __attribute__((interrupt("IRQ"))) irq_asm_handler(void)
 {
     printk("IRQ HIT!!!!");
     /** GPIO Register set */
