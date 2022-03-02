@@ -12,6 +12,5 @@
 
 #include <interrupts.h>
 
-void reset_asm_handler(void);
 
 #endif /* _supervisor_ */

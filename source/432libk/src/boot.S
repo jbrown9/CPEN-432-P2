@@ -11,7 +11,7 @@
 #include <psr.h>
 
 // label to make sure this code is executed first
-//.section ".text.boot"
+.section ".text.boot"
 
 
 /**

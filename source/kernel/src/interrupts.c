@@ -5,10 +5,11 @@
 
     This software is licensed under the MIT License.
     Please see the LICENSE file included with this software.
+
 */
-//test
+
 #include <kstdint.h>
-#include <kstdint.h>
+#include <kstdarg.h>
 
 #include <uart.h>
 #include <printk.h>
@@ -42,7 +43,7 @@ typedef struct {
     volatile uint32_t FIQ_control;
     volatile uint32_t Enable_IRQs_1;
     volatile uint32_t Enable_IRQs_2;
-    volatile uint32_t Enable_Basic_IRQs;
+    volatile int Enable_Basic_IRQs;
     volatile uint32_t Disable_IRQs_1;
     volatile uint32_t Disable_IRQs_2;
     volatile uint32_t Disable_Basic_IRQs;
@@ -125,22 +126,21 @@ void __attribute__((interrupt("ABORT"))) data_abort_vector(void)
     importantly clear the interrupt flag so that the interrupt won't
     immediately put us back into the start of the handler again.
 */
-void __attribute__((interrupt("IRQ"))) irq_c_handler(void)
+void __attribute__((interrupt("IRQ"))) irq_asm_handler(void)
 {
-    //irq_c_handler();
     printk("\r\nIRQ HIT!!!!\r\n");
     /** GPIO Register set */
-    /*static int lit = 0;
-    LED_EN();
+    //static int lit = 0; 
+    /**LED_EN();   
     if( *ARM_TIMER_MASKED_REG & 0x1 ) {
-       / * Clear the ARM Timer interrupt - it's the only interrupt we have
-            enabled, so we want don't have to work out which interrupt source
-            caused us to interrupt * /
+         Clear the ARM Timer interrupt - it's the only interrupt we have
+           enabled, so we want don't have to work out which interrupt source
+           caused us to interrupt 
         *ARM_TIMER_IRQ_REG = 1;
-        / * Flip the LED * /
+         Flip the LED  
         if( lit )
         {
-            LED_OFF();
+            LED_OFF();  
             lit = 0;
         }
         else
@@ -150,7 +150,6 @@ void __attribute__((interrupt("IRQ"))) irq_c_handler(void)
         }
     }*/
 }
-
 
 
 /**
