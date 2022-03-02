@@ -125,12 +125,13 @@ void __attribute__((interrupt("ABORT"))) data_abort_vector(void)
     importantly clear the interrupt flag so that the interrupt won't
     immediately put us back into the start of the handler again.
 */
-void __attribute__((interrupt("IRQ"))) irq_asm_handler(void)
+void __attribute__((interrupt("IRQ"))) irq_c_handler(void)
 {
+    //irq_c_handler();
     printk("\r\nIRQ HIT!!!!\r\n");
     /** GPIO Register set */
     /*static int lit = 0;
-    LED_EN();   
+    LED_EN();
     if( *ARM_TIMER_MASKED_REG & 0x1 ) {
        / * Clear the ARM Timer interrupt - it's the only interrupt we have
             enabled, so we want don't have to work out which interrupt source
@@ -139,8 +140,8 @@ void __attribute__((interrupt("IRQ"))) irq_asm_handler(void)
         / * Flip the LED * /
         if( lit )
         {
-            LED_OFF();  
-            lit = 0; 
+            LED_OFF();
+            lit = 0;
         }
         else
         {
@@ -149,6 +150,7 @@ void __attribute__((interrupt("IRQ"))) irq_asm_handler(void)
         }
     }*/
 }
+
 
 
 /**

@@ -86,6 +86,26 @@ void kernel_main(void) {
   //*ARM_INTERRUPT_EN_REG = 0x1; /** Enable the ARM Timer IRQ */
   enable_interrupts(); /** enable interupts */
   RPI_EnableARMTimerInterrupt();
+  
+  /*char getspeed = 0;
+
+  while (getspeed != 'r' || getspeed != 1 || getspeed != 2 || getspeed != 3) {
+      printk("Please select a value for the interrupt frequency: ");
+      getspeed = uart_get_byte();
+  }
+  if (getspeed == 1) {
+      timer_start(0.1);
+  }
+  else if (getspeed == 2) {
+      timer_start(0.1);
+  }
+  else if (getspeed == 3) {
+      timer_start(0.1);
+  }
+  else if (getspeed == 'r') {
+      reset_asm_handler;
+  }*/
+
   timer_start(0.1);  
   while (1) {
     if(timer_is_pending() == 1)
