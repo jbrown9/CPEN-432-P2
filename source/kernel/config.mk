@@ -40,6 +40,7 @@ K_C_SRC += $(PROJECT)/src/printk.c
 K_C_SRC += $(PROJECT)/src/uart.c
 K_C_SRC += $(PROJECT)/src/basic_timer.c
 K_C_SRC += $(PROJECT)/src/timer.c
+K_C_SRC += $(PROJECT)/src/interrupts.c
 
 ###########################################################################
 # Kernel assembly source files
@@ -51,3 +52,4 @@ K_AS_SRC += 432libk/src/boot.S
 K_AS_SRC += 432libk/src/arm.S
 K_AS_SRC += $(PROJECT)/src/unoptimized.S
 K_AS_SRC += $(PROJECT)/src/optimized.S
+K_AS_SRC += $(PROJECT)/src/supervisor.S
