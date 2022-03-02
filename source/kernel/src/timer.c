@@ -19,6 +19,7 @@ void timer_start(int freq)
 {
     uint32_t timer_value = (uint32_t)(250000000/freq);
     *ARM_TIMER_LOAD_REG = timer_value; 
+    printk("timer value = %u", timer_value);
     //*ARM_TIMER_RELOAD_REG = 1;timer_value;
     *ARM_TIMER_CTRL_REG =   ARM_TIMER_CTRL_32BIT |
                             ARM_TIMER_CTRL_PRESCALER1 |

@@ -84,14 +84,11 @@ void kernel_main(void) {
   printk("Interrupt Timer Pending %x\n", (*INTERRUPT_CONTROLLER_BASE));*/
 
   //*ARM_INTERRUPT_EN_REG = 0x1; /** Enable the ARM Timer IRQ */
+  enable_interrupts(); /** enable interupts */
   RPI_EnableARMTimerInterrupt();
-  timer_start(0.1);
-
-  enable_interrupts(); /** inable interupts */
-  delay_cycles(5);
-  
+  timer_start(0.1);  
   while (1) {
-    if(timer_is_pending() == 0)
+    if(timer_is_pending() == 1)
     {
       printk("\r\nControl Reg Value %x\r\n", *ARM_TIMER_CTRL_REG);
       printk("timer value %u\r\n", *TIMER_VALUE);

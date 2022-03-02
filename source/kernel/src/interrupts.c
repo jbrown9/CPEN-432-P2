@@ -128,7 +128,7 @@ void __attribute__((interrupt("ABORT"))) data_abort_vector(void)
 */
 void __attribute__((interrupt("IRQ"))) irq_asm_handler(void)
 {
-    printk("IRQ HIT!!!!");
+    printk("\r\nIRQ HIT!!!!\r\n");
     /** GPIO Register set */
     //static int lit = 0; 
     /**LED_EN();   
