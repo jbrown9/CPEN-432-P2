@@ -98,7 +98,7 @@ _data_abort_vector_h:               .word   data_abort_vector
 _unused_handler_h:                  .word   _reset_
 _irq_asm_handler_h:                 .word   _irq_asm_handler
 _fast_interrupt_vector_h:           .word   fast_interrupt_vector
-_irq_c_handler:                     .word   kernel/src/interrupts.c
+// _irq_c_handler:                     .word   kernel/src/interrupts.c
 
 _reset_:
      // Determine what mode the cpu has started up in. When we get to the very start of the ARM execution we can
@@ -150,21 +150,21 @@ _reset_:
 //  b _irq_asm_handler
 
 _irq_asm_handler:
-    srs sp, __irq_stack_top
+   // srs sp, __irq_stack_top
 
-    stmdb   r12,{r1, r2, r3, r4, r5, r6, r7, r8, r9, r10, r11, r12, r13, r14}
-    str cpsr, spsr_irq
-    msr cpsr_c, 10010010b
+   // stmdb   r12,{r1, r2, r3, r4, r5, r6, r7, r8, r9, r10, r11, r12, r13, r14}
+   // str cpsr, spsr_irq
+   // msr cpsr_c, 10010010b
     // msr cpsr_c, 10000000b 
     
-    add r0, pc, 0x4
-    str r0, lr_irq
+   // add r0, pc, 0x4
+   // str r0, lr_irq
     //str pc, lr_irq
-    ldr pc, 0x00000018
+   // ldr pc, 0x00000018
     bl      irq_c_handler
-    ldr cpsr, spsr_irq
-    ldr pc, lr_irq
-    ldmia   r12,{r1, r2, r3, r4, r5, r6, r7, r8, r9, r10, r11, r12, r13, r14}
+   // ldr cpsr, spsr_irq
+   // ldr pc, lr_irq
+   // ldmia   r12,{r1, r2, r3, r4, r5, r6, r7, r8, r9, r10, r11, r12, r13, r14}
 
 _reset_asm_handler:
   b _start // just reset the kernel
