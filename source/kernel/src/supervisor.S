@@ -31,6 +31,8 @@
 // Go and read and absorb this quite excellent startup code. It's really nice:
 // https://github.com/LdB-ECM/Raspberry-Pi/blob/master/SD_FAT32/SmartStart32.S
 
+// #include <interrupts.h>
+
 .section ".text.startup"
 
 .global _start
