@@ -36,6 +36,7 @@
 .global _start
 .global _get_stack_pointer
 .global _exception_table
+.global reset_asm_handler
 //.global _enable_interrupts
 
 

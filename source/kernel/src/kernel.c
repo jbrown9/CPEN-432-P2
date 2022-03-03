@@ -18,7 +18,7 @@
 #include <printk.h>
 #include <timer.h>
 #include <interrupts.h>
-#include <supervisor.h>
+
 
 
 #define SIZE 500
