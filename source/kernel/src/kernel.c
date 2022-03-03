@@ -23,7 +23,7 @@
 
 #define SIZE 500
 
-extern void reset_asm_handler(void);
+//extern void reset_asm_handler(void);
 
 int32_t array1[SIZE],array2[SIZE];
 
@@ -80,8 +80,6 @@ void kernel_main(void) {
   //RPI_SetGpioHi(LED_GPIO);
   
   /* Enable the timer interrupt IRQ */
-
-  //gic400_init(0xFF840000UL);
 
   *ARM_INTERRUPT_EN_REG = 0x1; /** Enable the ARM Timer IRQ */
   enable_interrupts(); /** enable interupts */

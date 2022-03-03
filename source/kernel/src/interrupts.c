@@ -129,7 +129,7 @@ void __attribute__((interrupt("ABORT"))) data_abort_vector(void)
     importantly clear the interrupt flag so that the interrupt won't
     immediately put us back into the start of the handler again.
 */
-void __attribute__((interrupt("IRQ"))) irq_c_handler(void)
+void __attribute__((interrupt("IRQ"))) irq_asm_handler(void)
 {
     printk("\r\nIRQ HIT!!!!\r\n");
     /*int speed = uart_get_byte();
@@ -170,6 +170,29 @@ void __attribute__((interrupt("IRQ"))) irq_c_handler(void)
     }*/
 }
 
+void irq_c_handler(void) 
+{
+    /** GPIO Register set */
+//static int lit = 0; 
+/**LED_EN();
+if( *ARM_TIMER_MASKED_REG & 0x1 ) {
+     Clear the ARM Timer interrupt - it's the only interrupt we have
+       enabled, so we want don't have to work out which interrupt source
+       caused us to interrupt
+    *ARM_TIMER_IRQ_REG = 1;
+     Flip the LED
+    if( lit )
+    {
+        LED_OFF();
+        lit = 0;
+    }
+    else
+    {
+        LED_ON();
+        lit = 1;
+    }
+}*/
+}
 
 /**
     @brief The FIQ Interrupt Handler
