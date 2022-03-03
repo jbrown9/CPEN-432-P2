@@ -108,7 +108,7 @@ void kernel_main(void) {
   }*/
 
   while (1) {
-    if(timer_is_pending() == 1)
+    if(timer_is_pending() == 0)
     {
       printk("\r\nControl Reg Value %x\r\n", *ARM_TIMER_CTRL_REG);
       printk("timer value %u\r\n", *TIMER_VALUE);
