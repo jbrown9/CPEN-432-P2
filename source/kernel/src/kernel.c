@@ -71,17 +71,11 @@ void kernel_main(void) {
     //Print passed
     printk("+++++++Test Passed+++++++\r\n");
   }
-  /* Enable the timer interrupt IRQ */
-
-  //RPI_GetIrqController()->Enable_Basic_IRQs = RPI_BASIC_ARM_TIMER_IRQ;
-  /* *ARM_INTERRUPT_EN_REG = 0x1; / ** Enable the ARM Timer IRQ * /
+  /* set output pins for leds*/
+  RPI_SetGpioPinFunction(LED_GPIO, FS_OUTPUT);
+  RPI_SetGpioHi(LED_GPIO);
   
-  timer_start(1); 
-  delay_cycles(5);
-  printk("Control Reg Value %x\n", *ARM_TIMER_CTRL_REG);
-  printk("timer value %u\n", *TIMER_VALUE);
-  printk("timer pending %d\n", timer_is_pending());
-  printk("Interrupt Timer Pending %x\n", (*INTERRUPT_CONTROLLER_BASE));*/
+  /* Enable the timer interrupt IRQ */
 
   //*ARM_INTERRUPT_EN_REG = 0x1; /** Enable the ARM Timer IRQ */
   enable_interrupts(); /** enable interupts */
@@ -108,7 +102,7 @@ void kernel_main(void) {
   }*/
 
   while (1) {
-    if(timer_is_pending() == 1)
+    if(timer_is_pending() == 0)
     {
       printk("\r\nControl Reg Value %x\r\n", *ARM_TIMER_CTRL_REG);
       printk("timer value %u\r\n", *TIMER_VALUE);

@@ -58,7 +58,7 @@ typedef struct {
 */
 void __attribute__((interrupt("ABORT"))) reset_vector(void)
 {
-
+    printk("reset vector");
 }
 
 
@@ -102,7 +102,7 @@ void __attribute__((interrupt("SWI"))) software_interrupt_vector(void)
 */
 void __attribute__((interrupt("ABORT"))) prefetch_abort_vector(void)
 {
-
+    printk("prefetch abort vector");
 }
 
 
@@ -114,7 +114,7 @@ void __attribute__((interrupt("ABORT"))) prefetch_abort_vector(void)
 */
 void __attribute__((interrupt("ABORT"))) data_abort_vector(void)
 {
-
+    printk("data abort vector");
 }
 
 
@@ -179,7 +179,7 @@ void __attribute__((interrupt("IRQ"))) irq_c_handler(void)
 */
 void __attribute__((interrupt("FIQ"))) fast_interrupt_vector(void)
 {
-
+    printk("FIQ vector");
 }
 
 
