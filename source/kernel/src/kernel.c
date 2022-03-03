@@ -72,8 +72,8 @@ void kernel_main(void) {
     printk("+++++++Test Passed+++++++\r\n");
   }
   /* set output pins for leds*/
-  RPI_SetGpioPinFunction(LED_GPIO, FS_OUTPUT);
-  RPI_SetGpioHi(LED_GPIO);
+  //RPI_SetGpioPinFunction(LED_GPIO, FS_OUTPUT);
+  //RPI_SetGpioHi(LED_GPIO);
   
   /* Enable the timer interrupt IRQ */
 
