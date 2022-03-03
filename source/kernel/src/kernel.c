@@ -103,7 +103,7 @@ void kernel_main(void) {
       timer_start(0.1);
   }
   else if (getspeed == 'r') {
-      reset_asm_handler;
+      reset_asm_handler();
   }
 
   while (1) {
