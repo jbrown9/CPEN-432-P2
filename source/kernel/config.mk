@@ -41,6 +41,7 @@ K_C_SRC += $(PROJECT)/src/uart.c
 K_C_SRC += $(PROJECT)/src/basic_timer.c
 K_C_SRC += $(PROJECT)/src/timer.c
 K_C_SRC += $(PROJECT)/src/interrupts.c
+K_C_SRC += $(PROJECT)/src/gic-400.c
 
 ###########################################################################
 # Kernel assembly source files
