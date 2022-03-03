@@ -11,7 +11,7 @@
 #ifndef RPI_BASE_H
 #define RPI_BASE_H
 
-#include <stdint.h>
+#include <kstdint.h>
 
 #if defined( RPI0 ) || defined( RPI1 )
     #define PERIPHERAL_BASE       0x20000000UL
