@@ -34,6 +34,9 @@
 #define RPI_BASIC_GPU_1_HALTED_IRQ      (1 << 5)
 #define RPI_BASIC_ACCESS_ERROR_1_IRQ    (1 << 6)
 #define RPI_BASIC_ACCESS_ERROR_0_IRQ    (1 << 7)
+#define RPI_UART_IRQ    (1 << 19)
+
+#define USRT_IMSC  ( MMIO_BASE_PHYSICAL + 0x0138)
 
 /** @brief The interrupt controller memory mapped register set */
 typedef struct {
@@ -129,6 +132,22 @@ void __attribute__((interrupt("ABORT"))) data_abort_vector(void)
 void __attribute__((interrupt("IRQ"))) irq_c_handler(void)
 {
     printk("\r\nIRQ HIT!!!!\r\n");
+    int speed = uart_get_byte();
+    switch (speed) ​{
+        case 'r':
+            reset_asm_handler;
+            break;
+        case '1':
+            timer_start(0.5);
+            break;
+        case '2':
+            timer_start(2);
+            break;
+        case '3':
+            timer_start(5);
+            break;
+        default:
+    }
     /** GPIO Register set */
     //static int lit = 0; 
     /**LED_EN();   
@@ -201,4 +220,6 @@ static rpi_irq_controller_t* RPI_GetIrqController(void)
 void RPI_EnableARMTimerInterrupt(void)
 {
     RPI_GetIrqController()->Enable_Basic_IRQs = RPI_BASIC_ARM_TIMER_IRQ;
+    // RPI_GetIrqController()->Enable_Basic_IRQs = RPI_UART_IRQ;
+    // USRT_IMSC = 0x0010;
 }
