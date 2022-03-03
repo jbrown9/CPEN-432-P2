@@ -36,8 +36,7 @@
 .global _start
 .global _get_stack_pointer
 .global _exception_table
-.global _enable_interrupts
-.global _enable_interrupts
+//.global _enable_interrupts
 
 
 // From the ARM ARM (Architecture Reference Manual). Make sure you get the
@@ -182,7 +181,7 @@ _inf_loop:
 
 
 irq_asm_handler:
-  b irq_asm_handler
+  b irq_c_handler
 
 
 reset_asm_handler:
@@ -203,12 +202,12 @@ _get_stack_pointer:
     mov     pc, lr
 
 
-_enable_interrupts:
-    mrs     r0, cpsr
-    bic     r0, r0, #CPSR_IRQ_INHIBIT
-    msr     cpsr_c, r0
-    cpsie   i
+//_enable_interrupts:
+//    mrs     r0, cpsr
+//    bic     r0, r0, #CPSR_IRQ_INHIBIT
+//    msr     cpsr_c, r0
+//    cpsie   i
 
-    mov     pc, lr
+//    mov     pc, lr
 
 
