@@ -43,7 +43,7 @@ typedef struct {
     volatile uint32_t FIQ_control;
     volatile uint32_t Enable_IRQs_1;
     volatile uint32_t Enable_IRQs_2;
-    volatile int Enable_Basic_IRQs;
+    volatile uint32_t Enable_Basic_IRQs;
     volatile uint32_t Disable_IRQs_1;
     volatile uint32_t Disable_IRQs_2;
     volatile uint32_t Disable_Basic_IRQs;

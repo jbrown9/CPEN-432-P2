@@ -21,7 +21,7 @@
 #include <supervisor.h>
 
 #define SIZE 500
-int array1[SIZE],array2[SIZE];
+int32_t array1[SIZE],array2[SIZE];
 
 void optimized(int array[SIZE]);
 void unoptimized(int array[SIZE]);
@@ -29,8 +29,8 @@ void unoptimized(int array[SIZE]);
 
 void kernel_main(void) {
 
-  int index;
-  int good = 1;
+  int32_t index;
+  int32_t good = 1;
   uint32_t timer_value;
   
   uart_init();
